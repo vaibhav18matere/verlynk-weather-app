@@ -1,13 +1,18 @@
 import React from "react";
-import { IoLocationOutline, IoSearch } from "react-icons/io5";
+import { IoSearch } from "react-icons/io5";
+// import { IoLocationOutline } from "react-icons/io5";
 
 const SearchInput = () => {
   return (
-    <section className="flex flex-row items-center justify-center mt-4 shadow-xl">
+    <section
+      className="flex row-auto items-center justify-center shadow-lg mt-6 p-6
+    rounded-[7px] border
+    "
+    >
       <input
-        className="text-xl font-light w-full p-2  placeholder:lowercase focus:outline-none tracking-wide"
+        className="text-xl font-light w-full placeholder:lowercase focus:outline-none tracking-wide"
         type="text"
-        placeholder="Search place to check weather..."
+        placeholder="Search place..."
       />
       <IoSearch
         size={34}
