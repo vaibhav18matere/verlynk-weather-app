@@ -1,6 +1,5 @@
 import React from "react";
 import { IoSearch } from "react-icons/io5";
-// import { IoLocationOutline } from "react-icons/io5";
 
 const SearchInput = () => {
   return (
@@ -18,7 +17,6 @@ const SearchInput = () => {
         size={34}
         className="cursor-pointer transition ease-out hover:scale-110 mr-4"
       />
-      {/* <IoLocationOutline size={34} /> */}
     </section>
   );
 };

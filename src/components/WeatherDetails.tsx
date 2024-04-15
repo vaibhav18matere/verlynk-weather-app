@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
-// import { MAIN_URL } from "../utilities/constants";
-// import { API_KEY } from "../utilities/constants";
+import { WEATHER_API_URL } from "../utilities/constants";
 import { WeatherData } from "../utilities/types";
+import { FaTemperatureFull, FaTemperatureLow } from "react-icons/fa6";
 
 const WeatherDetails = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
+  const WEATHER_DATA_URL =
+    WEATHER_API_URL +
+    "lat=44.34&lon=10.99&appid=" +
+    process.env.WEATHER_API_KEY;
+
   useEffect(() => {
     async function fetchWeather() {
       try {
-        const response = await fetch(
-          "https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=5b0995f5cdb146b3310aac31479e4e39"
-        );
+        const response = await fetch(WEATHER_DATA_URL);
         const data: WeatherData = await response.json();
         setWeatherData(data);
       } catch (error) {
@@ -32,7 +35,7 @@ const WeatherDetails = () => {
                 <div className="flex place-content-around mb-6">
                   <div className="flex flex-col">
                     <span className="text-6xl font-bold">
-                      {weatherData.main.temp.toFixed()} °F
+                      {weatherData.main?.temp.toFixed()} °F
                     </span>
                     <span className="font-semibold mt-1 text-gray-500">
                       Pune, India
@@ -51,25 +54,61 @@ const WeatherDetails = () => {
                 </div>
                 <div className="flex place-content-around mb-6">
                   <div className="flex flex-col">
-                    <p>
-                      Max Temperature: {weatherData.main.temp_max.toFixed()} °F
-                    </p>
-                    <p>
-                      Min Temperature: {weatherData.main.temp_min.toFixed()} °F
-                    </p>
+                    <div className="flex flex-row">
+                      <FaTemperatureFull />
+                      <div>
+                        &nbsp;Max Temperature:&nbsp;
+                        <span className="font-medium">
+                          {weatherData.main?.temp_max.toFixed()}&nbsp;°F
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-row">
+                      <FaTemperatureLow />
+                      <div>
+                        &nbsp;Min Temperature:&nbsp;
+                        <span className="font-medium">
+                          {weatherData.main?.temp_min.toFixed()}&nbsp;°F
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <div className="flex flex-col">
                     <div>
-                      Pressure: {weatherData.main.pressure.toFixed()} hPa
+                      Pressure:&nbsp;
+                      <span className="font-medium">
+                        {weatherData.main?.pressure.toFixed()}&nbsp;hPa
+                      </span>
                     </div>
-                    <div>Humidity: {weatherData.main.humidity.toFixed()} %</div>
+                    <div>
+                      Humidity:&nbsp;
+                      <span className="font-medium">
+                        {weatherData.main?.humidity.toFixed()}&nbsp;%
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </section>
         ) : (
-          <p>Loading...</p>
+          <svg
+            width="50%"
+            height="50%"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <text
+              x="50"
+              y="50"
+              text-anchor="middle"
+              alignment-baseline="middle"
+              font-size="20"
+              font-family="Poppins"
+            >
+              Loading...
+            </text>
+          </svg>
         )}
       </div>
     </>
